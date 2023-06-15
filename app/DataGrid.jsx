@@ -9,10 +9,13 @@ function DataGrid({pokemon}) {
     const [visibleList, setVisibleList] = useState([]);
     const [fullList, setFullList] = useState([]);
     const [searchList, setSearchList] = useState([]);
+    const [currentNumVisible, setCurrentNumVisible] = useState(0);
+    const maxCount = 1008;
 
     useEffect(()=>{
         setFullList([... pokemon]);
         setVisibleList([... pokemon.slice(0, 50)]);
+        setCurrentNumVisible(50);
     }, []);
 
     useEffect(()=>{
@@ -33,6 +36,25 @@ function DataGrid({pokemon}) {
         // CONDITION: Nothing is being searched, display visibleList
         displayRender = visibleList.map(p =>(<Card pokemon={p} key={p.id}/>));
     }
+    else {
+        displayRender = <h2>{"Something has gone wrong! Please try again in a few minutes.."}</h2>;
+    }
+
+    //Infinite scrolling functionality
+    const handleScroll = () =>{
+        const scrollTop = document.documentElement.scrollTop
+        const scrollHeight = document.documentElement.scrollHeight
+        const clientHeight = document.documentElement.clientHeight
+        if (scrollTop + clientHeight >= scrollHeight - 600 && (pokemon.length < maxCount)) {
+            document.removeEventListener('scroll', handleScroll);
+            //Add on the next 50 pokemon to the visible list of pokemon
+            setVisibleList([...visibleList, ...fullList.slice(visibleList.length, Math.min(visibleList.length + 50, maxCount - visibleList.length))]);
+        }
+    }
+    //Readd the event listener once your visible list gets updated
+    useEffect(()=>{
+        document.addEventListener('scroll', handleScroll) 
+    }, [visibleList])
 
   return (
     <>
