@@ -9,19 +9,23 @@ function DataGrid({pokemon}) {
     const [visibleList, setVisibleList] = useState([]);
     const [fullList, setFullList] = useState([]);
     const [searchList, setSearchList] = useState([]);
-    const [currentNumVisible, setCurrentNumVisible] = useState(0);
     const maxCount = 1008;
 
     useEffect(()=>{
         setFullList([... pokemon]);
         setVisibleList([... pokemon.slice(0, 50)]);
-        setCurrentNumVisible(50);
     }, []);
 
     useEffect(()=>{
-        setSearchList( fullList.filter(p=>p.name.includes(searchTerm.toLowerCase())) );
-        console.log(visibleList);
+        if (searchTerm.length > 0){
+            setSearchList( [...fullList.filter(p=>p.name.includes(searchTerm.toLowerCase())) ]);
+        }
     }, [searchTerm]);
+
+    //Re-add the event listener once your visible list gets updated
+    useEffect(()=>{
+        document.addEventListener('scroll', handleScroll) 
+    }, [visibleList]);
 
     let displayRender;
     if (searchTerm.length > 0 && searchList.length === 0){
@@ -51,10 +55,6 @@ function DataGrid({pokemon}) {
             setVisibleList([...visibleList, ...fullList.slice(visibleList.length, Math.min(visibleList.length + 50, maxCount - visibleList.length))]);
         }
     }
-    //Readd the event listener once your visible list gets updated
-    useEffect(()=>{
-        document.addEventListener('scroll', handleScroll) 
-    }, [visibleList])
 
   return (
     <>

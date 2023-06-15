@@ -2,7 +2,7 @@ import React from 'react'
 import DataGrid from './DataGrid';
 
 async function getData(){
-  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100`);
+  const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=700`);
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
