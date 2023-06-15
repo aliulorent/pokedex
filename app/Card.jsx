@@ -2,9 +2,9 @@ import React from 'react'
 import "./globals.css"
 
 
-function Card({pokemon}) {
+function Card({pokemon, handleSelect}) {
   return (
-    <div className='flex flex-col items-center relative bg-white rounded-b-xl lower-shadow m-[2px]'>
+    <div className='flex flex-col items-center relative bg-white rounded-b-xl lower-shadow m-[2px]' onClick={()=>handleSelect(pokemon)}>
         <div className='name-container flex flex-col items-start w-[100%]'>
             <h3 className={`pokemonName text-3xl text-bold m-2 mb-0 exo`}>{pokemon.name}</h3>
             <h3 className='text-lg text-gray-400 text-bold m-2 mt-0 exo'>{`#${pokemon.id}`}</h3>

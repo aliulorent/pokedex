@@ -2,13 +2,13 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import Card from './Card'
-import SearchField from './SearchField';
 
 function DataGrid({pokemon}) {
     const [searchTerm, setSearchTerm] = useState("");
     const [visibleList, setVisibleList] = useState([]);
     const [fullList, setFullList] = useState([]);
     const [searchList, setSearchList] = useState([]);
+    const [selectedPokemon, setSelectedPokemon] = useState({});
     const maxCount = 1008;
 
     useEffect(()=>{
@@ -27,23 +27,6 @@ function DataGrid({pokemon}) {
         document.addEventListener('scroll', handleScroll) 
     }, [visibleList]);
 
-    let displayRender;
-    if (searchTerm.length > 0 && searchList.length === 0){
-        // CONDITION: There is a search term but it cannot be found! Empty list!
-        displayRender = <h2>{"Could not find search results!"}</h2>;
-    }
-    else if (searchTerm.length > 0 && searchList.length > 0 ){
-        // CONDITION: Search term has been found! Return a list of results!
-        displayRender = searchList.map(p =>(<Card pokemon={p} key={p.id}/>));
-    }
-    else if (searchTerm.length === 0) {
-        // CONDITION: Nothing is being searched, display visibleList
-        displayRender = visibleList.map(p =>(<Card pokemon={p} key={p.id}/>));
-    }
-    else {
-        displayRender = <h2>{"Something has gone wrong! Please try again in a few minutes.."}</h2>;
-    }
-
     //Infinite scrolling functionality
     const handleScroll = () =>{
         const scrollTop = document.documentElement.scrollTop
@@ -54,6 +37,27 @@ function DataGrid({pokemon}) {
             //Add on the next 50 pokemon to the visible list of pokemon
             setVisibleList([...visibleList, ...fullList.slice(visibleList.length, Math.min(visibleList.length + 50, maxCount - visibleList.length))]);
         }
+    }
+    const handleSelect = (p) =>{
+        setSelectedPokemon(p);
+        console.log(p);
+    };
+
+    let displayRender;
+    if (searchTerm.length > 0 && searchList.length === 0){
+        // CONDITION: There is a search term but it cannot be found! Empty list!
+        displayRender = <h2>{"Could not find search results!"}</h2>;
+    }
+    else if (searchTerm.length > 0 && searchList.length > 0 ){
+        // CONDITION: Search term has been found! Return a list of results!
+        displayRender = searchList.map(p =>(<Card pokemon={p} key={p.id} handleSelect={handleSelect}/>));
+    }
+    else if (searchTerm.length === 0) {
+        // CONDITION: Nothing is being searched, display visibleList
+        displayRender = visibleList.map(p =>(<Card pokemon={p} key={p.id} handleSelect={handleSelect}/>));
+    }
+    else {
+        displayRender = <h2>{"Something has gone wrong! Please try again in a few minutes.."}</h2>;
     }
 
   return (
