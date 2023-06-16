@@ -61,15 +61,12 @@ function DataGrid({pokemon}) {
     }
 
   return (
-    <>
-        <input value={searchTerm} placeholder='Search for a Pokemon!' onChange={(event)=>setSearchTerm(event.target.value)}/>
-        <div className='grid-container grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
-            {/* {visibleList.map(p =>(<Card pokemon={p} key={p.id}/>))} */}
-            {/* {searchTerm.length > 0 ? (fullList.filter(p=>p.name.includes(searchTerm)).map(i=>(<Card pokemon={p}/>))): visibleList.map(p =>(<Card pokemon={p}/>)) } */}
-            {/* { searchList.length > 0 ? searchList.map(p =>(<Card pokemon={p} key={p.id}/>)) : visibleList.map(p =>(<Card pokemon={p} key={p.id}/>))} */}
+    <div className='flex flex-col relative mx-2'>
+        <input value={searchTerm} placeholder='Search for a Pokemon!' onChange={(event)=>setSearchTerm(event.target.value)} className='p-2 my-2 rounded-lg outline-none border border-blue-200 focus:border-blue-600 focus:text-gray-800 bg-slate-400/10 w-8/10'/>
+        <div className='grid-container grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1'>
             {displayRender}
         </div>
-    </>
+    </div>
   )
 }
 
