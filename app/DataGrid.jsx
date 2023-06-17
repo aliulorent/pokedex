@@ -2,13 +2,14 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import Card from './Card'
+import Selected from './Selected';
 
 function DataGrid({pokemon}) {
     const [searchTerm, setSearchTerm] = useState("");
     const [visibleList, setVisibleList] = useState([]);
     const [fullList, setFullList] = useState([]);
     const [searchList, setSearchList] = useState([]);
-    const [selectedPokemon, setSelectedPokemon] = useState({});
+    const [selectedPokemon, setSelectedPokemon] = useState(null);
     const maxCount = 1008;
 
     useEffect(()=>{
@@ -59,9 +60,19 @@ function DataGrid({pokemon}) {
     else {
         displayRender = <h2>{"Something has gone wrong! Please try again in a few minutes.."}</h2>;
     }
+    let renderSelect;
+    if (selectedPokemon){
+        renderSelect = <Selected pokemon={selectedPokemon}/>
+    }
+    else{
+        renderSelect = null;
+    }
 
   return (
     <div className='flex flex-col relative mx-2'>
+        <div className='fixed top-[50%] left-[50%] select-container bg-red-300 z-10 '>
+            {renderSelect}
+        </div>
         <input value={searchTerm} placeholder='Search for a Pokemon!' onChange={(event)=>setSearchTerm(event.target.value)} className='p-2 my-2 rounded-lg outline-none border border-blue-200 focus:border-blue-600 focus:text-gray-800 bg-slate-400/10 w-8/10'/>
         <div className='grid-container grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1'>
             {displayRender}
