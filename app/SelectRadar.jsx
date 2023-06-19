@@ -9,14 +9,14 @@ const SelectRadar = ({ data, name }) => (
         keys={[ name ]}
         indexBy="stats"
         maxValue={255}
-        margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
+        margin={{ top: 60, right: 80, bottom: 30, left: 80 }}
         borderWidth={5}
         borderColor={{ from: 'color', modifiers: [] }}
-        gridLevels={4}
+        gridLevels={3}
         enableDots={false}
         dotColor={{ theme: 'background' }}
         dotBorderWidth={2}
-        colors={{ scheme: 'nivo' }}
+        colors={{ scheme: 'yellow_orange_red' }}
         fillOpacity={0.7}
         blendMode="multiply"
         motionConfig="wobbly"
