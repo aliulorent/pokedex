@@ -72,10 +72,10 @@ function DataGrid({pokemon}) {
     }
 
   return (
-    <div className='flex flex-col relative mx-2'>
+    <div className={`flex flex-col relative mx-2`}>
         {renderSelect}
         <input value={searchTerm} placeholder='Search for a Pokemon!' onChange={(event)=>setSearchTerm(event.target.value)} className='p-2 my-2 rounded-lg outline-none border border-blue-200 focus:border-blue-600 focus:text-gray-800 bg-slate-400/10 w-8/10'/>
-        <div className='grid-container grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1'>
+        <div className={`grid-container grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1  ${selectedPokemon ? "filter blur-lg" : ""}`}>
             {displayRender}
         </div>
     </div>
