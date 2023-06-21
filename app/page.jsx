@@ -4,7 +4,7 @@ import { promises as fs } from 'fs';
 
 // async function getData(){
 //   //Fetch data from PokeAPI
-//   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=100`);
+//   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/?offset=0&limit=1010`);
 //   if (!res.ok) {
 //     throw new Error('Failed to fetch data');
 //   }

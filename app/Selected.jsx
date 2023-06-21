@@ -79,7 +79,7 @@ function Selected({pokemon, close}) {
                 <SelectRadar data = {stats} name = {name} marginx = {30}/>
               </div>
             </div>
-            <btn className='absolute top-2 right-2 bg-blue-400 p-1 px-2 text-white rounded-full shadow-md cursor-pointer' onClick={()=>close()}>✖</btn>
+            <button className='absolute top-2 right-2 bg-blue-400 p-1 px-2 text-white rounded-full shadow-md cursor-pointer' onClick={()=>close()}>✖</button>
         </div>
       )
     }

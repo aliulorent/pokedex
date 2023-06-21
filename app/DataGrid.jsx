@@ -10,22 +10,23 @@ function DataGrid({pokemon}) {
     const [fullList, setFullList] = useState([]);
     const [searchList, setSearchList] = useState([]);
     const [selectedPokemon, setSelectedPokemon] = useState(null);
-    const maxCount = 1008;
 
     useEffect(()=>{
-        setFullList([... pokemon]);
-        setVisibleList([... pokemon.slice(0, 50)]);
+        setFullList(pokemon);
+        setVisibleList(pokemon.slice(0, 50));
+        console.log(`Loaded ${pokemon.length} pokemon!`);
     }, []);
 
     useEffect(()=>{
         if (searchTerm.length > 0){
-            setSearchList( [...fullList.filter(p=>p.name.includes(searchTerm.toLowerCase())) ]);
+            setSearchList( fullList.filter(p=>p.name.includes(searchTerm.toLowerCase())));
         }
     }, [searchTerm]);
 
     //Re-add the event listener once your visible list gets updated
     useEffect(()=>{
         document.addEventListener('scroll', handleScroll) 
+        console.log(visibleList.length);
     }, [visibleList]);
 
     //Infinite scrolling functionality
@@ -33,10 +34,13 @@ function DataGrid({pokemon}) {
         const scrollTop = document.documentElement.scrollTop
         const scrollHeight = document.documentElement.scrollHeight
         const clientHeight = document.documentElement.clientHeight
-        if (scrollTop + clientHeight >= scrollHeight - 600 && (pokemon.length < maxCount)) {
+        //if (scrollHeight + scrollTop >= clientHeight + 50 && (visibleList.length < fullList.length)) {
+        if (scrollTop + clientHeight >= scrollHeight - 600 && (visibleList.length < pokemon.length)) {
+            console.log("Triggered Scroll Function");
             document.removeEventListener('scroll', handleScroll);
             //Add on the next 50 pokemon to the visible list of pokemon
-            setVisibleList([...visibleList, ...fullList.slice(visibleList.length, Math.min(visibleList.length + 50, maxCount - visibleList.length))]);
+            setVisibleList([...visibleList, ...fullList.slice(visibleList.length, Math.min(visibleList.length + 50, visibleList.length + (fullList.length - visibleList.length)))]);
+            //setVisibleList(visibleList.concat(fullList.slice(visibleList.length, Math.min(visibleList.length + 50, pokemon.length - visibleList.length))));
         }
     }
     const handleSelect = (p) =>{
@@ -78,6 +82,7 @@ function DataGrid({pokemon}) {
         <div className={`grid-container grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1  ${selectedPokemon ? "filter blur-lg" : ""}`}>
             {displayRender}
         </div>
+        <button onClick={()=>handleScroll()}>Load More...</button>
     </div>
   )
 }
