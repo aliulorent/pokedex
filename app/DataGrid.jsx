@@ -82,7 +82,7 @@ function DataGrid({pokemon}) {
         <div className={`grid-container grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1  ${selectedPokemon ? "filter blur-lg" : ""}`}>
             {displayRender}
         </div>
-        <button onClick={()=>handleScroll()}>Load More...</button>
+        <button className={`${visibleList < fullList ? "" : "hidden"}`} onClick={()=>handleScroll()}>Load More...</button>
     </div>
   )
 }
