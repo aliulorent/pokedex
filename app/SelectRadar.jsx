@@ -14,8 +14,8 @@ const SelectRadar = ({ data, name, marginx }) => (
         gridLevels={3}
         enableDots={false}
         dotColor={{ theme: 'background' }}
-        dotBorderWidth={2}
-        colors={{ scheme: 'yellow_orange_red' }}
+        dotBorderWidth={1}
+        colors={{ scheme: 'dark2' }}
         fillOpacity={0.7}
         blendMode="multiply"
         motionConfig="wobbly"

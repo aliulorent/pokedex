@@ -14,6 +14,7 @@ function Card({pokemon, handleSelect}) {
                 {pokemon.types.map((t) => <div className={`m-1 mt-2 p-1 px-2 rounded-md ${t.type.name} drop-shadow-md`} key={t.type.name}><h4 className='text-center text-white text-md pokemonName'>{t.type.name}</h4></div>  )}
         </div>
     </div>
+
   )
 }
 
